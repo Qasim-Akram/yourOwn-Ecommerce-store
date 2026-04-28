@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Jost:wght@300;400;500&display=swap');
+
+.checkout-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(14, 14, 14, 0.85);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  font-family: 'Jost', sans-serif;
+  animation: headerSlideDown 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes headerSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  height: 68px;
+}
+
+.checkout-header-left-section a {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-decoration: none;
+  line-height: 1;
+}
+
+.checkout-header-left-section .logo {
+  display: none;
+}
+
+.checkout-header-left-section a::before {
+  content: 'yourOwn';
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #f5f5f5;
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+
+.checkout-header-left-section a::after {
+  content: 'Everything You. Nothing Less.';
+  font-size: 0.58rem;
+  font-weight: 300;
+  letter-spacing: 0.18em;
+  color: rgba(255, 255, 255, 0.28);
+  text-transform: uppercase;
+}
+
+.checkout-header-middle-section {
+  font-size: 0.85rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.32);
+}
+
+.checkout-header-right-section img {
+  width: 16px;
+  height: 16px;
+  opacity: 0.28;
+  filter: brightness(0) invert(1);
+}
+
+@media (max-width: 768px) {
+  .header-content {
+    padding: 0 16px;
+  }
+
+  .checkout-header-middle-section {
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+  }
+}

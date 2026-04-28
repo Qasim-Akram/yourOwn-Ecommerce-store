@@ -1,0 +1,204 @@
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes cardReveal {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes progressFill {
+  from {
+    width: 0%;
+  }
+
+  to {
+    width: var(--progress);
+  }
+}
+
+.tracking-page {
+  padding: 48px 40px;
+  max-width: 720px;
+  margin: 0 auto;
+  animation: fadeIn 0.4s 0.2s ease both;
+}
+
+.order-tracking-container {
+  background: #141414;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 6px;
+  overflow: hidden;
+  animation: cardReveal 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.tracking-header {
+  display: flex;
+  gap: 36px;
+  padding: 16px 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.02);
+  flex-wrap: wrap;
+}
+
+.tracking-header>div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.tracking-header .label {
+  font-size: 0.6rem;
+  font-weight: 300;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.28);
+}
+
+.tracking-header>div>span:last-child {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 0.02em;
+}
+
+.tracking-header>div:first-child>span:last-child {
+  font-family: monospace;
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.38);
+  letter-spacing: 0.04em;
+}
+
+.tracking-header>div:last-child>span:last-child {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #f0f0f0;
+}
+
+.product-info {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  padding: 24px;
+}
+
+.product-info .product-image {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 4px;
+  opacity: 0.85;
+  background: #1a1a1a;
+  flex-shrink: 0;
+  transition: opacity 0.2s ease;
+}
+
+.product-info .product-image:hover {
+  opacity: 1;
+}
+
+.product-info>div {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.product-info .product-name {
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.82);
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+}
+
+.product-info .product-quantity {
+  font-size: 0.7rem;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.35);
+  letter-spacing: 0.04em;
+}
+
+.product-info .delivery-date {
+  font-size: 0.72rem;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.4);
+  letter-spacing: 0.04em;
+}
+
+.progress-bar-container {
+  height: 3px;
+  background: rgba(255, 255, 255, 0.07);
+  border-radius: 50px;
+  overflow: hidden;
+  margin: 0 24px 14px;
+}
+
+.progress-bar {
+  height: 100%;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 50px;
+  transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+  animation: progressFill 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both;
+}
+
+.progress-labels {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 24px 28px;
+}
+
+.progress-label {
+  font-size: 0.62rem;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.22);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+}
+
+.current-status {
+  color: rgba(255, 255, 255, 0.78);
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .tracking-page {
+    padding: 24px 16px;
+  }
+
+  .tracking-header {
+    gap: 20px;
+    padding: 14px 16px;
+  }
+
+  .product-info {
+    padding: 18px 16px;
+  }
+
+  .product-info .product-image {
+    width: 64px;
+    height: 64px;
+  }
+
+  .progress-bar-container {
+    margin: 0 16px 12px;
+  }
+
+  .progress-labels {
+    padding: 0 16px 22px;
+  }
+}
