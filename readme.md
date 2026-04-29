@@ -86,8 +86,8 @@ Runs on `http://localhost:3000`
 
 **1. Clone the repo**
 ```bash
-git clone https://github.com/qasim-akram/YOUROWN-ECOMMERCE STORE.git
-cd YOUR_REPO
+git clone https://github.com/qasim-akram/yourOwn-Ecommerce-store.git
+cd yourOwn-Ecommerce-store
 ```
 
 **2. Start the backend**
@@ -131,7 +131,7 @@ Create a `.env` file in the **backend** folder:
 
 ```env
 PORT=3000
-MONGO_URI=your_database_url  
+MONGO_URI=http://localhost:3000
 ```
 
 Create a `.env` file in the **frontend** folder:
