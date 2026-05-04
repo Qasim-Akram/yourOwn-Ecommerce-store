@@ -1,18 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&display=swap');
+
 :root {
-  --bg: #0e0e0e;
-  --surface: #141414;
-  --surface-raised: #1a1a1a;
-  --border: rgba(255, 255, 255, 0.06);
-  --border-hover: rgba(255, 255, 255, 0.14);
-  --border-subtle: rgba(255, 255, 255, 0.05);
-  --border-focus: rgba(255, 255, 255, 0.22);
-  --text-primary: rgba(255, 255, 255, 0.85);
-  --text-secondary: rgba(255, 255, 255, 0.55);
+  --bg: #080808;
+  --surface: #0f0f0f;
+  --surface-raised: #111111;
+  --border: rgba(255, 255, 255, 0.05);
+  --border-hover: rgba(184, 255, 0, 0.15);
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --border-focus: rgba(184, 255, 0, 0.3);
+  --text-primary: rgba(255, 255, 255, 0.92);
+  --text-secondary: rgba(255, 255, 255, 0.5);
   --text-muted: rgba(255, 255, 255, 0.28);
-  --btn-bg: rgba(255, 255, 255, 0.07);
-  --btn-bg-hover: rgba(255, 255, 255, 0.13);
-  --btn-border: rgba(255, 255, 255, 0.1);
-  --btn-border-hover: rgba(255, 255, 255, 0.22);
+  --accent: #b8ff00;
+  --accent-hover: #ccff33;
+  --btn-bg: rgba(255, 255, 255, 0.06);
+  --btn-bg-hover: rgba(184, 255, 0, 0.1);
+  --btn-border: rgba(255, 255, 255, 0.08);
+  --btn-border-hover: rgba(184, 255, 0, 0.4);
 }
 
 @keyframes fadeIn {
@@ -39,7 +43,7 @@
 
 body {
   background: var(--bg);
-  font-family: 'Jost', sans-serif;
+  font-family: 'Barlow', sans-serif;
 }
 
 .checkout-page {
@@ -48,11 +52,11 @@ body {
 }
 
 .page-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 2.2rem;
-  font-weight: 600;
-  color: #f0f0f0;
-  letter-spacing: 0.02em;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.8rem;
+  font-weight: 400;
+  color: #ffffff;
+  letter-spacing: 0.06em;
   margin-bottom: 32px;
 }
 
@@ -188,11 +192,11 @@ body {
 }
 
 .cart-item-details .product-price {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.05rem;
-  font-weight: 600;
-  color: #f0f0f0;
-  letter-spacing: 0.02em;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: var(--accent);
+  letter-spacing: 0.06em;
 }
 
 .product-quantity {
@@ -318,11 +322,11 @@ body {
 }
 
 .payment-summary-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #f0f0f0;
-  letter-spacing: 0.02em;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #ffffff;
+  letter-spacing: 0.06em;
   margin-bottom: 18px;
 }
 
@@ -361,35 +365,54 @@ body {
 }
 
 .total-row div {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #f0f0f0;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: var(--accent);
+  letter-spacing: 0.06em;
 }
 
 .place-order-button {
   width: 100%;
   margin-top: 20px;
-  background: rgba(255, 255, 255, 0.92);
+  background: #b8ff00;
   border: none;
   border-radius: 3px;
-  color: #0e0e0e;
-  font-family: 'Jost', sans-serif;
-  font-size: 0.72rem;
-  font-weight: 500;
+  color: #080808;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 400;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  padding: 13px 0;
+  padding: 14px 0;
   cursor: pointer;
-  transition: background 0.2s ease, transform 0.15s ease;
+  transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.place-order-button::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 40%, rgba(255, 255, 255, 0.15) 50%, transparent 60%);
+  transform: translateX(-100%);
+  transition: transform 0.4s ease;
+}
+
+.place-order-button:hover::after {
+  transform: translateX(100%);
 }
 
 .place-order-button:hover {
-  background: #ffffff;
+  background: #ccff33;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(184, 255, 0, 0.25);
 }
 
 .place-order-button:active {
   transform: scale(0.98);
+  box-shadow: none;
 }
 
 .button-primary {
@@ -397,12 +420,12 @@ body {
   border: 1px solid var(--btn-border);
   border-radius: 3px;
   color: var(--text-secondary);
-  font-family: 'Jost', sans-serif;
-  font-size: 0.7rem;
-  font-weight: 400;
+  font-family: 'Barlow', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  padding: 7px 14px;
+  padding: 8px 14px;
   cursor: pointer;
   transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
@@ -410,7 +433,7 @@ body {
 .button-primary:hover {
   background: var(--btn-bg-hover);
   border-color: var(--btn-border-hover);
-  color: rgba(255, 255, 255, 0.88);
+  color: var(--accent);
 }
 
 @media (max-width: 900px) {

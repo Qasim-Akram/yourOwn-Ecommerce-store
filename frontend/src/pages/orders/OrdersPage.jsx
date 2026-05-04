@@ -59,7 +59,7 @@ export function OrdersPage({ cart, loadCart }) {
                                             }
 
                                             return (
-                                                <Fragment key={orderProduct.id}>
+                                                <div key={orderProduct.id} className="order-row">
                                                     <div className="product-image-container">
                                                         <img src={orderProduct.product.image} />
                                                     </div>
@@ -74,7 +74,7 @@ export function OrdersPage({ cart, loadCart }) {
                                                         <div className="product-quantity">
                                                             Quantity: {orderProduct.quantity}
                                                         </div>
-                                                        <button className="buy-again-button button-primary" onClick={addToCart}>
+                                                        <button className="buy-again-button" onClick={addToCart}>
                                                             <img className="buy-again-icon" src="images/icons/buy-again.png" />
                                                             <span className="buy-again-message">Add to Cart</span>
                                                         </button>
@@ -89,7 +89,7 @@ export function OrdersPage({ cart, loadCart }) {
                                                     </div>
 
 
-                                                </Fragment>)
+                                                </div>)
                                         }
                                         )
                                         }

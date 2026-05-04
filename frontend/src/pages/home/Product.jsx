@@ -39,10 +39,10 @@ export function Product({ product, loadCart }) {
                 {product.name}
             </div>
 
-            <div className="product-rating-container">
+           <div className="product-rating-container">
                 <img className="product-rating-stars"
                     data-testid="product-rating-stars"
-                    src={`images/ratings/rating-${product.rating.stars }.png`} />
+                    src={`/images/ratings/rating-${product.rating.stars * 10}.png`} />
                 <div className="product-rating-count link-primary">
                     {product.rating.count}
                 </div>

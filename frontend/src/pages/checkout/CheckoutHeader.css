@@ -1,14 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Jost:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&display=swap');
 
 .checkout-header {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(14, 14, 14, 0.85);
+  background: rgba(8, 8, 8, 0.85);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-  font-family: 'Jost', sans-serif;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  font-family: 'Barlow', sans-serif;
   animation: headerSlideDown 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
@@ -46,11 +46,11 @@
 
 .checkout-header-left-section a::before {
   content: 'yourOwn';
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Bebas Neue', sans-serif;
   font-size: 1.5rem;
-  font-weight: 600;
+  font-weight: 400;
   color: #f5f5f5;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.06em;
   line-height: 1;
 }
 
