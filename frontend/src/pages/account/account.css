@@ -205,6 +205,42 @@ body {
     transform: scale(0.98);
 }
 
+.button-disabled {
+    opacity: 0.5;
+    cursor: not-allowed !important;
+}
+
+.button-disabled:hover {
+    background: var(--btn-bg);
+    border-color: var(--btn-border);
+    color: var(--text-secondary);
+    transform: none !important;
+}
+
+.button-primary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.button-primary:disabled:hover {
+    background: var(--btn-bg);
+    border-color: var(--btn-border);
+    color: var(--text-secondary);
+}
+
+.input-error {
+    border-color: #ff6b6b !important;
+    background: rgba(255, 107, 107, 0.08) !important;
+}
+
+.error-message {
+    font-size: 0.75rem;
+    color: #ff6b6b;
+    margin-top: 4px;
+    letter-spacing: 0.02em;
+    font-weight: 400;
+}
+
 .auth-link {
     text-align: center;
     margin-top: 24px;

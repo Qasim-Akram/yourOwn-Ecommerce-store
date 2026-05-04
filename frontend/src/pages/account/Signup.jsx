@@ -8,10 +8,22 @@ export function Signup() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [visibility, setVisibility] = useState(false);
+    const [emptyFields, setEmptyFields] = useState([]);
 
     useEffect(() => {
         document.title = "Sign Up - yourOwn Store";
     }, []);
+
+    const validateFields = () => {
+        const empty = [];
+        if (!firstName.trim()) empty.push('firstName');
+        if (!email.trim()) empty.push('email');
+        if (!password.trim()) empty.push('password');
+        setEmptyFields(empty);
+        return empty.length === 0;
+    };
+
+    const isFormValid = firstName.trim() !== '' && email.trim() !== '' && password.trim() !== '';
 
     return (<>
         <div className="signup-container">
@@ -21,11 +33,12 @@ export function Signup() {
             <div className="form-group">
                 <input 
                     type='text' 
-                    className="form-input"
+                    className={`form-input ${emptyFields.includes('firstName') ? 'input-error' : ''}`}
                     placeholder="First Name"
                     value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
                 />
+                {emptyFields.includes('firstName') && <p className="error-message">First Name is required</p>}
             </div>
             
             <div className="form-group">
@@ -41,22 +54,24 @@ export function Signup() {
             <div className="form-group">
                 <input 
                     type='email' 
-                    className="form-input"
+                    className={`form-input ${emptyFields.includes('email') ? 'input-error' : ''}`}
                     placeholder="Email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                 />
+                {emptyFields.includes('email') && <p className="error-message">Email is required</p>}
             </div>
             
             <div className="password-toggle-container">
                 <div className="password-field">
                     <input 
                         type={visibility ? "text" : "password"} 
-                        className="form-input"
+                        className={`form-input ${emptyFields.includes('password') ? 'input-error' : ''}`}
                         placeholder="Password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     />
+                    {emptyFields.includes('password') && <p className="error-message">Password is required</p>}
                 </div>
                 <button 
                     className="toggle-button"
@@ -66,8 +81,14 @@ export function Signup() {
                 </button>
             </div>
             
-            <Link to="/homepage" style={{ textDecoration: 'none' }}>
-                <button className="button-primary">Sign Up</button>
+            <Link to={isFormValid ? "/homepage" : "#"} style={{ textDecoration: 'none' }} onClick={(e) => !isFormValid && e.preventDefault()}>
+                <button 
+                    className={`button-primary ${!isFormValid ? 'button-disabled' : ''}`}
+                    disabled={!isFormValid}
+                    onClick={() => validateFields()}
+                >
+                    Sign Up
+                </button>
             </Link>
 
             <div className="auth-link">
