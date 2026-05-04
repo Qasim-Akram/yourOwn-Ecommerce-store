@@ -1,99 +1,98 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router";
 import './account.css';
 
 export function Signup() {
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [visibility, setVisibility] = useState(false);
-    const [emptyFields, setEmptyFields] = useState([]);
+    const navigate = useNavigate();
+    const [form, setForm] = useState({ firstName: "", lastName: "", email: "", password: "" });
+    const [errors, setErrors] = useState({});
+    const [showPassword, setShowPassword] = useState(false);
 
-    useEffect(() => {
-        document.title = "Sign Up - yourOwn Store";
-    }, []);
-
-    const validateFields = () => {
-        const empty = [];
-        if (!firstName.trim()) empty.push('firstName');
-        if (!email.trim()) empty.push('email');
-        if (!password.trim()) empty.push('password');
-        setEmptyFields(empty);
-        return empty.length === 0;
+    const handleChange = (field) => (e) => {
+        setForm(prev => ({ ...prev, [field]: e.target.value }));
+        if (errors[field]) setErrors(prev => ({ ...prev, [field]: false }));
     };
 
-    const isFormValid = firstName.trim() !== '' && email.trim() !== '' && password.trim() !== '';
+    const handleSubmit = () => {
+        const newErrors = {
+            firstName: !form.firstName.trim(),
+            email: !form.email.trim(),
+            password: !form.password.trim(),
+        };
+        setErrors(newErrors);
+        if (Object.values(newErrors).some(Boolean)) return;
+        navigate("/homepage");
+    };
 
-    return (<>
-        <div className="signup-container">
-            <h1 className="account-title">Create Account</h1>
-            <p className="account-subtitle">Join us today</p>
-            
-            <div className="form-group">
-                <input 
-                    type='text' 
-                    className={`form-input ${emptyFields.includes('firstName') ? 'input-error' : ''}`}
-                    placeholder="First Name"
-                    value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
-                />
-                {emptyFields.includes('firstName') && <p className="error-message">First Name is required</p>}
-            </div>
-            
-            <div className="form-group">
-                <input 
-                    type="text" 
-                    className="form-input"
-                    placeholder="Last Name (optional)"
-                    value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
-                />
-            </div>
+    const isValid = form.firstName.trim() && form.email.trim() && form.password.trim();
 
-            <div className="form-group">
-                <input 
-                    type='email' 
-                    className={`form-input ${emptyFields.includes('email') ? 'input-error' : ''}`}
-                    placeholder="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-                {emptyFields.includes('email') && <p className="error-message">Email is required</p>}
-            </div>
-            
-            <div className="password-toggle-container">
-                <div className="password-field">
-                    <input 
-                        type={visibility ? "text" : "password"} 
-                        className={`form-input ${emptyFields.includes('password') ? 'input-error' : ''}`}
-                        placeholder="Password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+    return (
+        <>
+            <title>Signup - yourOwn Store</title>
+            <div className="signup-container">
+                <h1 className="account-title">Create <span>Account</span></h1>
+                <p className="account-subtitle">Join us today</p>
+
+                <div className="form-group">
+                    <input
+                        type="text"
+                        className={`form-input ${errors.firstName ? 'input-error' : ''}`}
+                        placeholder="First Name"
+                        value={form.firstName}
+                        onChange={handleChange('firstName')}
                     />
-                    {emptyFields.includes('password') && <p className="error-message">Password is required</p>}
+                    {errors.firstName && <p className="error-message">First Name is required</p>}
                 </div>
-                <button 
-                    className="toggle-button"
-                    onClick={() => setVisibility(!visibility)}
-                >
-                    {visibility ? "Hide" : "Show"}
-                </button>
-            </div>
-            
-            <Link to={isFormValid ? "/homepage" : "#"} style={{ textDecoration: 'none' }} onClick={(e) => !isFormValid && e.preventDefault()}>
-                <button 
-                    className={`button-primary ${!isFormValid ? 'button-disabled' : ''}`}
-                    disabled={!isFormValid}
-                    onClick={() => validateFields()}
+
+                <div className="form-group">
+                    <input
+                        type="text"
+                        className="form-input"
+                        placeholder="Last Name (optional)"
+                        value={form.lastName}
+                        onChange={handleChange('lastName')}
+                    />
+                </div>
+
+                <div className="form-group">
+                    <input
+                        type="email"
+                        className={`form-input ${errors.email ? 'input-error' : ''}`}
+                        placeholder="Email"
+                        value={form.email}
+                        onChange={handleChange('email')}
+                    />
+                    {errors.email && <p className="error-message">Email is required</p>}
+                </div>
+
+                <div className="password-toggle-container">
+                    <div className="password-field">
+                        <input
+                            type={showPassword ? "text" : "password"}
+                            className={`form-input ${errors.password ? 'input-error' : ''}`}
+                            placeholder="Password"
+                            value={form.password}
+                            onChange={handleChange('password')}
+                        />
+                        {errors.password && <p className="error-message">Password is required</p>}
+                    </div>
+                    <button className="toggle-button" onClick={() => setShowPassword(p => !p)}>
+                        {showPassword ? " Hide " : "Show"}
+                    </button>
+                </div>
+
+                <button
+                    className={`button-primary ${!isValid ? 'button-disabled' : ''}`}
+                    disabled={!isValid}
+                    onClick={handleSubmit}
                 >
                     Sign Up
                 </button>
-            </Link>
 
-            <div className="auth-link">
-                Already have an account? <Link to="/login">Sign in</Link>
+                <div className="auth-link">
+                    Already have an account? <Link to="/login">Sign in</Link>
+                </div>
             </div>
-        </div>
-    </>)
+        </>
+    );
 }

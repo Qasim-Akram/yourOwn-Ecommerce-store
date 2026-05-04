@@ -1,20 +1,26 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Jost:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&display=swap');
 
 :root {
-    --bg: #0e0e0e;
-    --surface: #141414;
-    --surface-raised: #1a1a1a;
+    --bg: #080808;
+    --surface: #0f0f0f;
+    --surface-raised: #151515;
     --border: rgba(255, 255, 255, 0.06);
-    --border-hover: rgba(255, 255, 255, 0.15);
-    --border-subtle: rgba(255, 255, 255, 0.07);
-    --border-focus: rgba(255, 255, 255, 0.22);
-    --text-primary: rgba(255, 255, 255, 0.88);
+    --border-hover: rgba(184, 255, 0, 0.4);
+    --border-subtle: rgba(255, 255, 255, 0.08);
+    --border-focus: rgba(184, 255, 0, 0.6);
+    --text-primary: rgba(255, 255, 255, 0.95);
     --text-secondary: rgba(255, 255, 255, 0.5);
     --text-muted: rgba(255, 255, 255, 0.28);
-    --btn-bg: rgba(255, 255, 255, 0.07);
-    --btn-bg-hover: rgba(255, 255, 255, 0.13);
-    --btn-border: rgba(255, 255, 255, 0.1);
-    --btn-border-hover: rgba(255, 255, 255, 0.22);
+    --accent: #b8ff00;
+    --accent-hover: #ccff33;
+    --accent-dim: rgba(184, 255, 0, 0.12);
+    --accent-dark: #1a2600;
+    --btn-bg: rgba(255, 255, 255, 0.04);
+    --btn-bg-hover: rgba(184, 255, 0, 0.1);
+    --btn-border: rgba(255, 255, 255, 0.10);
+    --btn-border-hover: rgba(184, 255, 0, 0.5);
+    --error: #ff4d4d;
+    --error-bg: rgba(255, 77, 77, 0.08);
 }
 
 * {
@@ -26,13 +32,45 @@
 body {
     background: var(--bg);
     color: var(--text-primary);
-    font-family: 'Jost', sans-serif;
+    font-family: 'Barlow', sans-serif;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 340px;
+    height: 340px;
+    background: repeating-linear-gradient(-55deg,
+            transparent,
+            transparent 18px,
+            rgba(184, 255, 0, 0.03) 18px,
+            rgba(184, 255, 0, 0.03) 20px);
+    pointer-events: none;
+    z-index: 0;
+}
+
+body::after {
+    content: '';
+    position: fixed;
+    bottom: -120px;
+    left: -120px;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(184, 255, 0, 0.05) 0%, transparent 65%);
+    pointer-events: none;
+    z-index: 0;
 }
 
 @keyframes fadeInUp {
     from {
         opacity: 0;
-        transform: translateY(8px);
+        transform: translateY(12px);
     }
 
     to {
@@ -53,93 +91,119 @@ body {
 
 .login-container,
 .signup-container {
-    max-width: 420px;
+    max-width: 440px;
     margin: 80px auto;
-    padding: 40px;
+    padding: 44px 40px;
     background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    animation: fadeInUp 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-top: 2px solid var(--accent);
+    border-radius: 4px;
+    position: relative;
+    z-index: 1;
+    animation: fadeInUp 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.login-container::before,
+.signup-container::before {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    right: -1px;
+    width: 32px;
+    height: 32px;
+    border-bottom: 2px solid var(--accent);
+    border-right: 2px solid var(--accent);
+    border-radius: 0 0 4px 0;
+    pointer-events: none;
 }
 
 .signup-container {
     animation-delay: 0.05s;
 }
 
+/* ── Typography ── */
 .account-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 2rem;
-    font-weight: 600;
-    color: #f5f5f5;
-    letter-spacing: 0.02em;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3.4rem;
+    font-weight: 400;
+    color: #ffffff;
+    letter-spacing: 0.05em;
+    line-height: 1;
     margin-bottom: 8px;
-    animation: fadeIn 0.6s 0.1s ease both;
+    animation: fadeIn 0.5s 0.1s ease both;
+}
+
+.account-title span {
+    color: var(--accent);
 }
 
 .account-subtitle {
-    font-size: 0.9rem;
-    font-weight: 300;
+    font-size: 0.85rem;
+    font-weight: 400;
     color: var(--text-muted);
     margin-bottom: 32px;
-    letter-spacing: 0.04em;
-    animation: fadeIn 0.6s 0.2s ease both;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    animation: fadeIn 0.5s 0.15s ease both;
 }
 
 .form-group {
-    margin-bottom: 18px;
-    animation: fadeInUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+    margin-bottom: 14px;
+    animation: fadeInUp 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .form-group:nth-child(1) {
-    animation-delay: 0.1s;
+    animation-delay: 0.10s;
 }
 
 .form-group:nth-child(2) {
-    animation-delay: 0.15s;
+    animation-delay: 0.14s;
 }
 
 .form-group:nth-child(3) {
-    animation-delay: 0.2s;
+    animation-delay: 0.18s;
 }
 
 .form-group:nth-child(4) {
-    animation-delay: 0.25s;
+    animation-delay: 0.22s;
 }
 
 .form-group:nth-child(5) {
-    animation-delay: 0.3s;
+    animation-delay: 0.26s;
 }
 
 .form-input {
     width: 100%;
-    padding: 12px 14px;
-    background: rgba(255, 255, 255, 0.04);
+    padding: 13px 16px;
+    background: rgba(255, 255, 255, 0.03);
     border: 1px solid var(--border-subtle);
     border-radius: 3px;
     color: var(--text-primary);
-    font-family: 'Jost', sans-serif;
+    font-family: 'Barlow', sans-serif;
     font-size: 0.95rem;
-    font-weight: 300;
-    letter-spacing: 0.04em;
+    font-weight: 400;
+    letter-spacing: 0.03em;
     outline: none;
-    transition: border-color 0.25s ease, background 0.2s ease;
+    transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
 }
 
 .form-input::placeholder {
-    color: rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.18);
+    letter-spacing: 0.04em;
 }
 
 .form-input:focus {
     border-color: var(--border-focus);
-    background: rgba(255, 255, 255, 0.06);
+    background: rgba(184, 255, 0, 0.03);
+    box-shadow: 0 0 0 3px rgba(184, 255, 0, 0.06);
 }
 
 .password-toggle-container {
     display: flex;
-    gap: 10px;
-    align-items: flex-end;
-    margin-bottom: 18px;
-    animation: fadeInUp 0.5s 0.25s cubic-bezier(0.22, 1, 0.36, 1) both;
+    gap: 8px;
+    align-items: flex-start;
+    margin-bottom: 14px;
+    animation: fadeInUp 0.45s 0.22s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .password-field {
@@ -151,120 +215,125 @@ body {
 }
 
 .toggle-button {
-    padding: 12px 14px;
+    padding: 13px 14px;
     background: var(--btn-bg);
     border: 1px solid var(--btn-border);
-    width: 70px;
     border-radius: 3px;
+    width: 68px;
     color: var(--text-secondary);
-    font-family: 'Jost', sans-serif;
-    font-size: 0.8rem;
-    font-weight: 400;
-    letter-spacing: 0.08em;
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     cursor: pointer;
-    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.12s ease;
     white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .toggle-button:hover {
     background: var(--btn-bg-hover);
     border-color: var(--btn-border-hover);
-    color: rgba(255, 255, 255, 0.92);
+    color: var(--accent);
 }
 
 .toggle-button:active {
-    transform: scale(0.98);
+    transform: scale(0.97);
 }
 
 .button-primary {
     width: 100%;
-    padding: 12px 0;
-    background: var(--btn-bg);
-    border: 1px solid var(--btn-border);
+    padding: 14px 0;
+    background: var(--accent);
+    border: none;
     border-radius: 3px;
-    color: var(--text-secondary);
-    font-family: 'Jost', sans-serif;
-    font-size: 0.95rem;
-    font-weight: 400;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
+    color: #080808;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.25rem;
+    letter-spacing: 0.14em;
     cursor: pointer;
-    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
-    margin-top: 12px;
-    animation: fadeInUp 0.5s 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+    transition: background 0.2s ease, transform 0.12s ease, box-shadow 0.2s ease;
+    margin-top: 16px;
+    animation: fadeInUp 0.45s 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+    position: relative;
+    overflow: hidden;
 }
 
-.button-primary:hover {
-    background: var(--btn-bg-hover);
-    border-color: var(--btn-border-hover);
-    color: rgba(255, 255, 255, 0.92);
+.button-primary::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(105deg, transparent 40%, rgba(255, 255, 255, 0.15) 50%, transparent 60%);
+    transform: translateX(-100%);
+    transition: transform 0.4s ease;
 }
 
-.button-primary:active {
+.button-primary:hover:not(:disabled)::after {
+    transform: translateX(100%);
+}
+
+.button-primary:hover:not(:disabled) {
+    background: var(--accent-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 20px rgba(184, 255, 0, 0.25);
+}
+
+.button-primary:active:not(:disabled) {
     transform: scale(0.98);
+    box-shadow: none;
 }
 
-.button-disabled {
-    opacity: 0.5;
-    cursor: not-allowed !important;
-}
-
-.button-disabled:hover {
-    background: var(--btn-bg);
-    border-color: var(--btn-border);
-    color: var(--text-secondary);
-    transform: none !important;
-}
-
+/* ── Disabled state ── */
+.button-disabled,
 .button-primary:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-}
-
-.button-primary:disabled:hover {
-    background: var(--btn-bg);
-    border-color: var(--btn-border);
-    color: var(--text-secondary);
+    background: rgba(184, 255, 0, 0.15) !important;
+    color: rgba(8, 8, 8, 0.4) !important;
+    cursor: not-allowed !important;
+    transform: none !important;
+    box-shadow: none !important;
 }
 
 .input-error {
-    border-color: #ff6b6b !important;
-    background: rgba(255, 107, 107, 0.08) !important;
+    border-color: var(--error) !important;
+    background: var(--error-bg) !important;
 }
 
 .error-message {
-    font-size: 0.75rem;
-    color: #ff6b6b;
-    margin-top: 4px;
-    letter-spacing: 0.02em;
-    font-weight: 400;
+    font-size: 0.72rem;
+    color: var(--error);
+    margin-top: 5px;
+    letter-spacing: 0.04em;
+    font-weight: 500;
+    text-transform: uppercase;
 }
 
 .auth-link {
     text-align: center;
     margin-top: 24px;
-    font-size: 0.9rem;
+    font-size: 0.88rem;
     color: var(--text-muted);
-    letter-spacing: 0.02em;
-    animation: fadeIn 0.6s 0.4s ease both;
+    letter-spacing: 0.03em;
+    animation: fadeIn 0.5s 0.38s ease both;
 }
 
 .auth-link a {
-    color: var(--text-secondary);
+    color: var(--accent);
     text-decoration: none;
-    transition: color 0.2s ease;
-    font-weight: 400;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    transition: color 0.2s ease, text-shadow 0.2s ease;
 }
 
 .auth-link a:hover {
-    color: rgba(255, 255, 255, 0.92);
+    color: var(--accent-hover);
+    text-shadow: 0 0 12px rgba(184, 255, 0, 0.4);
 }
 
 .form-note {
-    font-size: 0.8rem;
+    font-size: 0.78rem;
     color: var(--text-muted);
-    letter-spacing: 0.02em;
+    letter-spacing: 0.03em;
     margin-top: 8px;
 }
 
@@ -273,12 +342,12 @@ body {
     .login-container,
     .signup-container {
         max-width: 100%;
-        margin: 40px 16px;
-        padding: 24px 16px;
+        margin: 32px 16px;
+        padding: 28px 20px;
     }
 
     .account-title {
-        font-size: 1.6rem;
+        font-size: 2.6rem;
     }
 
     .password-toggle-container {

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { Link } from "react-router";
 import './account.css';
 
@@ -8,9 +8,6 @@ export function Login() {
     const [password, setPassword] = useState("");
     const [emptyFields, setEmptyFields] = useState([]);
 
-    useEffect(() => {
-        document.title = "Login - yourOwn Store";
-    }, []);
 
     const validateFields = () => {
         const empty = [];
@@ -23,8 +20,9 @@ export function Login() {
     const isFormValid = email.trim() !== '' && password.trim() !== '';
 
     return (<>
+        <title>Login - yourOwn Store</title>
         <div className="login-container">
-            <h1 className="account-title">Welcome Back</h1>
+            <h1 className="account-title">Welcome <span>Back</span></h1>
             <p className="account-subtitle">Sign in to your account</p>
 
             <div className="form-group">
@@ -58,7 +56,7 @@ export function Login() {
             </div>
 
             <Link to={isFormValid ? "/homepage" : "#"} style={{ textDecoration: 'none' }} onClick={(e) => !isFormValid && e.preventDefault()}>
-                <button 
+                <button
                     className={`button-primary ${!isFormValid ? 'button-disabled' : ''}`}
                     disabled={!isFormValid}
                     onClick={() => validateFields()}
