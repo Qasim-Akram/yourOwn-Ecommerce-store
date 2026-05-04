@@ -1,0 +1,256 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Jost:wght@300;400;500&display=swap');
+
+:root {
+    --bg: #0e0e0e;
+    --surface: #141414;
+    --surface-raised: #1a1a1a;
+    --border: rgba(255, 255, 255, 0.06);
+    --border-hover: rgba(255, 255, 255, 0.15);
+    --border-subtle: rgba(255, 255, 255, 0.07);
+    --border-focus: rgba(255, 255, 255, 0.22);
+    --text-primary: rgba(255, 255, 255, 0.88);
+    --text-secondary: rgba(255, 255, 255, 0.5);
+    --text-muted: rgba(255, 255, 255, 0.28);
+    --btn-bg: rgba(255, 255, 255, 0.07);
+    --btn-bg-hover: rgba(255, 255, 255, 0.13);
+    --btn-border: rgba(255, 255, 255, 0.1);
+    --btn-border-hover: rgba(255, 255, 255, 0.22);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: var(--bg);
+    color: var(--text-primary);
+    font-family: 'Jost', sans-serif;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.login-container,
+.signup-container {
+    max-width: 420px;
+    margin: 80px auto;
+    padding: 40px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    animation: fadeInUp 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.signup-container {
+    animation-delay: 0.05s;
+}
+
+.account-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 600;
+    color: #f5f5f5;
+    letter-spacing: 0.02em;
+    margin-bottom: 8px;
+    animation: fadeIn 0.6s 0.1s ease both;
+}
+
+.account-subtitle {
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: var(--text-muted);
+    margin-bottom: 32px;
+    letter-spacing: 0.04em;
+    animation: fadeIn 0.6s 0.2s ease both;
+}
+
+.form-group {
+    margin-bottom: 18px;
+    animation: fadeInUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.form-group:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.form-group:nth-child(2) {
+    animation-delay: 0.15s;
+}
+
+.form-group:nth-child(3) {
+    animation-delay: 0.2s;
+}
+
+.form-group:nth-child(4) {
+    animation-delay: 0.25s;
+}
+
+.form-group:nth-child(5) {
+    animation-delay: 0.3s;
+}
+
+.form-input {
+    width: 100%;
+    padding: 12px 14px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border-subtle);
+    border-radius: 3px;
+    color: var(--text-primary);
+    font-family: 'Jost', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 300;
+    letter-spacing: 0.04em;
+    outline: none;
+    transition: border-color 0.25s ease, background 0.2s ease;
+}
+
+.form-input::placeholder {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.form-input:focus {
+    border-color: var(--border-focus);
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.password-toggle-container {
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+    margin-bottom: 18px;
+    animation: fadeInUp 0.5s 0.25s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.password-field {
+    flex: 1;
+}
+
+.password-field .form-input {
+    margin: 0;
+}
+
+.toggle-button {
+    padding: 12px 14px;
+    background: var(--btn-bg);
+    border: 1px solid var(--btn-border);
+    width: 70px;
+    border-radius: 3px;
+    color: var(--text-secondary);
+    font-family: 'Jost', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
+    white-space: nowrap;
+}
+
+.toggle-button:hover {
+    background: var(--btn-bg-hover);
+    border-color: var(--btn-border-hover);
+    color: rgba(255, 255, 255, 0.92);
+}
+
+.toggle-button:active {
+    transform: scale(0.98);
+}
+
+.button-primary {
+    width: 100%;
+    padding: 12px 0;
+    background: var(--btn-bg);
+    border: 1px solid var(--btn-border);
+    border-radius: 3px;
+    color: var(--text-secondary);
+    font-family: 'Jost', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
+    margin-top: 12px;
+    animation: fadeInUp 0.5s 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.button-primary:hover {
+    background: var(--btn-bg-hover);
+    border-color: var(--btn-border-hover);
+    color: rgba(255, 255, 255, 0.92);
+}
+
+.button-primary:active {
+    transform: scale(0.98);
+}
+
+.auth-link {
+    text-align: center;
+    margin-top: 24px;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    letter-spacing: 0.02em;
+    animation: fadeIn 0.6s 0.4s ease both;
+}
+
+.auth-link a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+    font-weight: 400;
+}
+
+.auth-link a:hover {
+    color: rgba(255, 255, 255, 0.92);
+}
+
+.form-note {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    letter-spacing: 0.02em;
+    margin-top: 8px;
+}
+
+@media (max-width: 480px) {
+
+    .login-container,
+    .signup-container {
+        max-width: 100%;
+        margin: 40px 16px;
+        padding: 24px 16px;
+    }
+
+    .account-title {
+        font-size: 1.6rem;
+    }
+
+    .password-toggle-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .toggle-button {
+        width: 100%;
+    }
+}

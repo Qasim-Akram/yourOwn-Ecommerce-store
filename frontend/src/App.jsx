@@ -5,6 +5,7 @@ import { CheckoutPage } from './pages/checkout/checkoutPage'
 import { OrdersPage } from './pages/orders/OrdersPage'
 import { TrackingPage } from './pages/TrackingPage'
 import { Login } from './pages/account/Login'
+import { Signup } from './pages/account/Signup'
 import './App.css'
 import { useEffect, useState } from 'react'
 
@@ -24,6 +25,8 @@ function App() {
     <>
       <Routes>
         <Route index element={<Login />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
         <Route path='/homepage' element={<HomePage cart={cart} loadCart={loadCart} />} />
         <Route path="/checkout" element={<CheckoutPage cart={cart} loadCart={loadCart} />} />
         <Route path="/orders" element={<OrdersPage cart={cart} loadCart={loadCart} />} />
