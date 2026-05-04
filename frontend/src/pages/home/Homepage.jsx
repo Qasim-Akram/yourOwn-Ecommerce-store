@@ -61,7 +61,7 @@ export function HomePage({ cart, loadCart }) {
 
                         <div className="hero-marquee-wrap">
                             <div className="marquee-track">
-                                {Array(6).fill(null).map((_, i) => (
+                                {Array(8).fill(null).map((_, i) => (
                                     <span key={i} className="marquee-item">
                                         YOUROWN STORE <span className="marquee-dot">✦</span>
                                     </span>
