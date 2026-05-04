@@ -41,7 +41,7 @@ export function CheckoutPage({ cart, loadCart }) {
                 ) : (
                     <div className="empty-cart-message">
                         <p>Your cart is empty.</p>
-                        <a href="/">Continue shopping</a>
+                        <a href="/homepage">Continue shopping</a>
                     </div>
                 )}
             </div>

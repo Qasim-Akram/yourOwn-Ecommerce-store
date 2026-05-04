@@ -13,7 +13,7 @@ export function Header({ cart }) {
     });
 
     const searchItem = () => {
-        navigate(`/?search=${searchTerm}`);
+        navigate(`/homepage?search=${searchTerm}`);
     };
 
     const handleKeyDown = (event) => {
@@ -26,7 +26,7 @@ export function Header({ cart }) {
         <>
             <div className="header">
                 <div className="left-section">
-                    <Link to="/" className="header-link brand-link">
+                    <Link to="/homepage" className="header-link brand-link">
                         <span className="brand-name">yourOwn</span>
                         <span className="brand-tagline">Everything You. Nothing Less.</span>
                     </Link>

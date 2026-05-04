@@ -4,12 +4,13 @@
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(8, 8, 8, 0.85);
+  background: rgba(8, 8, 8, 0.95);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   font-family: 'Barlow', sans-serif;
   animation: headerSlideDown 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
 }
 
 @keyframes headerSlideDown {
@@ -38,6 +39,11 @@
   gap: 2px;
   text-decoration: none;
   line-height: 1;
+  transition: opacity 0.2s ease;
+}
+
+.checkout-header-left-section a:hover {
+  opacity: 0.7;
 }
 
 .checkout-header-left-section .logo {
@@ -48,34 +54,67 @@
   content: 'yourOwn';
   font-family: 'Bebas Neue', sans-serif;
   font-size: 1.5rem;
-  font-weight: 400;
-  color: #f5f5f5;
-  letter-spacing: 0.06em;
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: 0.02em;
   line-height: 1;
+  transition: color 0.2s ease;
+}
+
+.checkout-header-left-section a:hover::before {
+  color: #b8ff00;
 }
 
 .checkout-header-left-section a::after {
   content: 'Everything You. Nothing Less.';
-  font-size: 0.58rem;
+  font-size: 0.65rem;
   font-weight: 300;
   letter-spacing: 0.18em;
-  color: rgba(255, 255, 255, 0.28);
+  color: rgba(255, 255, 255, 0.35);
   text-transform: uppercase;
+  transition: color 0.2s ease;
+}
+
+.checkout-header-left-section a:hover::after {
+  color: rgba(184, 255, 0, 0.6);
 }
 
 .checkout-header-middle-section {
-  font-size: 0.85rem;
-  font-weight: 400;
+  font-size: 0.82rem;
+  font-weight: 600;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.32);
+  color: rgba(255, 255, 255, 0.4);
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.checkout-header-middle-section::before,
+.checkout-header-middle-section::after {
+  content: '';
+  width: 1px;
+  height: 18px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.checkout-header-right-section {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .checkout-header-right-section img {
-  width: 16px;
-  height: 16px;
-  opacity: 0.28;
-  filter: brightness(0) invert(1);
+  width: 18px;
+  height: 18px;
+  opacity: 0.4;
+  filter: brightness(0) saturate(100%) invert(93%) sepia(60%) saturate(700%) hue-rotate(30deg);
+  transition: opacity 0.2s ease;
+}
+
+.checkout-header-right-section:hover img {
+  opacity: 0.85;
 }
 
 @media (max-width: 768px) {
@@ -84,7 +123,39 @@
   }
 
   .checkout-header-middle-section {
-    font-size: 0.75rem;
-    letter-spacing: 0.14em;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+  }
+
+  .checkout-header-left-section a::before {
+    font-size: 1.2rem;
+  }
+
+  .checkout-header-left-section a::after {
+    font-size: 0.55rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-content {
+    padding: 0 12px;
+    height: 56px;
+  }
+
+  .checkout-header-middle-section::before,
+  .checkout-header-middle-section::after {
+    display: none;
+  }
+
+  .checkout-header-middle-section {
+    gap: 10px;
+  }
+
+  .checkout-header-left-section a::before {
+    font-size: 1.1rem;
+  }
+
+  .checkout-header-left-section a::after {
+    display: none;
   }
 }
