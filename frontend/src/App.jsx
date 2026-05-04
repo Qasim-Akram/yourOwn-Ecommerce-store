@@ -4,6 +4,7 @@ import { Routes, Route } from 'react-router'
 import { CheckoutPage } from './pages/checkout/checkoutPage'
 import { OrdersPage } from './pages/orders/OrdersPage'
 import { TrackingPage } from './pages/TrackingPage'
+import { Login } from './pages/account/Login'
 import './App.css'
 import { useEffect, useState } from 'react'
 
@@ -22,7 +23,8 @@ function App() {
   return (
     <>
       <Routes>
-        <Route index element={<HomePage cart={cart} loadCart={loadCart} />} />
+        <Route index element={<Login />} />
+        <Route path='/homepage' element={<HomePage cart={cart} loadCart={loadCart} />} />
         <Route path="/checkout" element={<CheckoutPage cart={cart} loadCart={loadCart} />} />
         <Route path="/orders" element={<OrdersPage cart={cart} loadCart={loadCart} />} />
         <Route path="/tracking/:orderId/:productId" element={<TrackingPage cart={cart} />} />
