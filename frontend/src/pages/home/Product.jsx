@@ -42,7 +42,7 @@ export function Product({ product, loadCart }) {
            <div className="product-rating-container">
                 <img className="product-rating-stars"
                     data-testid="product-rating-stars"
-                    src={`http://localhost:3000/images/ratings/rating-${Math.round(product.rating.stars * 10)}.png`}
+                    src={`/images/ratings/rating-${Math.round(product.rating.stars * 10)}.png`}
                     alt={`${product.rating.stars} stars`} />
                 <div className="product-rating-count link-primary">
                     {product.rating.count}
