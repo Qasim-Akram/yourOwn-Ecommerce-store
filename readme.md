@@ -1,113 +1,138 @@
-# 🛒 E-Commerce Store
+# yourOwn Store 🛒
 
-A full-stack e-commerce web application built with **React** (Vite) on the frontend and **Node.js/Express** on the backend. Features product browsing, cart management, checkout flow, order tracking, and more.
+> **Everything You. Nothing Less.**  
+> A full-stack e-commerce web application built with React, Node.js, Express, and SQLite.
+
+---
+
+## 📸 Screenshots
+
+| Home | Checkout | Orders |
+|------|----------|--------|
+| ![Home](screenshots/home.png) | ![Checkout](screenshots/checkout.png) | ![Orders](screenshots/orders.png) |
 
 ---
 
 ## ✨ Features
 
-- 🔍 **Product Search** — Search products in real time via query params
-- 🛍️ **Product Grid** — Browse products with ratings, pricing, and quantity selection
-- 🛒 **Cart System** — Add to cart with live quantity badge on header
-- 💳 **Checkout Flow** — Cart summary, delivery options, and payment summary
-- 📦 **Orders Page** — View past orders with buy-again support
-- 🚚 **Order Tracking** — Track delivery status per order
-- 🔔 **Toast Notifications** — Non-intrusive feedback on user actions
-- 📱 **Fully Responsive** — Mobile-first design across all pages
+- 🔐 **JWT Authentication** — Signup, login, and protected routes
+- 🛍️ **Product Browsing** — Search and filter 40+ products
+- 🛒 **Cart Management** — Add, update quantity, delete items
+- 🚚 **Delivery Options** — Choose from 3 delivery speeds per item
+- 💳 **Payment Summary** — Live cost breakdown with 10% tax
+- 📦 **Order Tracking** — Visual progress bar (Preparing → Shipped → Delivered)
+- 🔄 **Buy Again** — Re-add past order items to cart instantly
+- 🧪 **Unit Tests** — Vitest + React Testing Library coverage
 
 ---
 
 ## 🗂️ Project Structure
 
 ```
-root/
-├── frontend/     ← React + Vite
-└── backend/      ← Node.js + Express
+yourOwn-store/
+├── backend/                  # Node.js + Express API
+│   ├── models/               # Sequelize models (User, Product, CartItem, Order)
+│   ├── routes/               # REST API routes
+│   ├── middleware/           # JWT auth middleware
+│   ├── defaultData/          # Seed data
+│   └── server.js             # Entry point
+│
+└── frontend/                 # React + Vite SPA
+    └── src/
+        ├── components/       # Header, Toast, ProtectedRoute
+        ├── context/          # Auth context (JWT state)
+        ├── pages/
+        │   ├── home/         # Product grid + search
+        │   ├── checkout/     # Cart, delivery options, payment
+        │   ├── orders/       # Order history + buy again
+        │   ├── account/      # Login & Signup
+        │   └── TrackingPage  # Package tracking
+        └── utils/            # Money formatter
 ```
 
 ---
 
-## 🖥️ Frontend
+## 🛠️ Tech Stack
 
-**Stack:** React, Vite, React Router, Axios, CSS
+### Frontend
+| Tech | Purpose |
+|------|---------|
+| React 19 | UI framework |
+| React Router v7 | Client-side routing |
+| Axios | HTTP requests |
+| Day.js | Date formatting |
+| Vite | Build tool |
+| Vitest + Testing Library | Unit testing |
 
-```
-src/
-├── components/        ← Header, Toast
-├── pages/
-│   ├── home/          ← Product listing & search
-│   ├── checkout/      ← Cart, delivery, payment
-│   ├── orders/        ← Order history
-│   └── TrackingPage   ← Order tracking
-└── utils/             ← Money formatting helpers
-```
-
-### Setup
-
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
-Runs on `http://localhost:5173`
-
----
-
-## ⚙️ Backend
-
-**Stack:** Node.js, Express
-
-Provides REST API endpoints consumed by the frontend.
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/api/products` | Get all products |
-| GET | `/api/products?search=` | Search products by keyword |
-| GET | `/api/cart` | Get cart items |
-| POST | `/api/cart` | Add item to cart |
-| PUT | `/api/cart/:id` | Update cart item quantity |
-| DELETE | `/api/cart/:id` | Remove item from cart |
-| GET | `/api/orders` | Get all orders |
-
-### Setup
-
-```bash
-cd backend
-npm install
-npm start
-```
-
-Runs on `http://localhost:3000`
+### Backend
+| Tech | Purpose |
+|------|---------|
+| Node.js + Express | REST API server |
+| Sequelize ORM | Database abstraction |
+| SQLite (sql.js) | Embedded database |
+| JWT (jsonwebtoken) | Authentication tokens |
+| bcryptjs | Password hashing |
+| nodemon | Dev auto-restart |
 
 ---
 
 ## 🚀 Getting Started
 
-**1. Clone the repo**
+### Prerequisites
+- Node.js **v22** (required — v24 has a known crash with sql.js-as-sqlite3)
+- npm
+
+### 1. Clone the repo
+
 ```bash
-git clone https://github.com/qasim-akram/yourOwn-Ecommerce-store.git
-cd yourOwn-Ecommerce-store
+git clone https://github.com/Qasim-Akram/yourOwn-store.git
+cd yourOwn-store
 ```
 
-**2. Start the backend**
+### 2. Start the Backend
+
 ```bash
 cd backend
 npm install
-npm start
+npm run dev
 ```
 
-**3. Start the frontend**
+Backend runs at `http://localhost:3000`
+
+### 3. Start the Frontend
+
+Open a new terminal:
+
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
 
-**4. Open in browser**
-```
-http://localhost:5173
-```
+Frontend runs at `http://localhost:5173`
+
+> The frontend proxies all `/api` requests to the backend automatically via Vite config.
+
+---
+
+## 🔌 API Reference
+
+| Method | Endpoint | Description | Auth |
+|--------|----------|-------------|------|
+| POST | `/api/auth/signup` | Register new user | ❌ |
+| POST | `/api/auth/login` | Login, returns JWT | ❌ |
+| GET | `/api/auth/me` | Get current user | ✅ |
+| GET | `/api/products` | List all products | ✅ |
+| GET | `/api/products?search=...` | Search products | ✅ |
+| GET | `/api/cart-items` | Get cart | ✅ |
+| POST | `/api/cart-items` | Add to cart | ✅ |
+| PUT | `/api/cart-items/:productId` | Update quantity/delivery | ✅ |
+| DELETE | `/api/cart-items/:productId` | Remove from cart | ✅ |
+| GET | `/api/orders` | Get all orders | ✅ |
+| POST | `/api/orders` | Place order (clears cart) | ✅ |
+| GET | `/api/orders/:orderId` | Get single order | ✅ |
+| GET | `/api/payment-summary` | Cart cost breakdown | ✅ |
+| POST | `/api/reset` | Reset DB to defaults | ✅ |
 
 ---
 
@@ -118,40 +143,31 @@ cd frontend
 npm run test
 ```
 
-Tests are written with **Vitest** and cover:
-- `HomePage` rendering
-- `Product` component
-- `money.js` utility formatting
+Tests cover:
+- `formatMoney()` utility function
+- `Product` component rendering and add-to-cart behavior
+- `HomePage` product grid rendering
 
 ---
 
-## 🌍 Environment Variables
+## ⚠️ Known Issues & Notes
 
-Create a `.env` file in the **backend** folder:
-
-```env
-PORT=3000
-MONGO_URI=http://localhost:3000
-```
-
-Create a `.env` file in the **frontend** folder:
-
-```env
-VITE_API_URL=http://localhost:3000
-```
-
-> ⚠️ Never commit `.env` files — they are already in `.gitignore`
+- **Node.js v24 incompatibility** — The `sql.js-as-sqlite3` package crashes on Node v24 due to a libuv async handle issue. Use **Node v22 LTS**.
+- The SQLite database persists to `backend/database.sqlite`. Hit `POST /api/reset` to restore default data.
+- JWT tokens expire after **7 days**.
 
 ---
 
-## 📸 Screenshots
+## 👤 Author
 
-![Home Page](screenshots/home.png)
-![Checkout Page](screenshots/checkout.png)
-![Orders Page](screenshots/orders.png)
+**Muhammad Qasim**  
+🎓 BSCS Student — Islamia University of Bahawalpur  
+🔗 [github.com/Qasim-Akram](https://github.com/Qasim-Akram)  
+💼 [linkedin.com/in/qasimakram](https://linkedin.com/in/qasimakram)  
+🌐 [mqasimakram.netlify.app](https://mqasimakram.netlify.app)
 
 ---
 
 ## 📄 License
 
-MIT — free to use and modify.
+This project is open source and available under the [MIT License](LICENSE).
