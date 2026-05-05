@@ -5,7 +5,6 @@ import archiver from 'archiver';
 const outputDir = path.resolve('./');
 const zipFilePrefix = 'ecommerce-backend-';
 
-// Get the next zip file ID
 const getNextZipId = () => {
   const files = fs.readdirSync(outputDir);
   const zipFiles = files.filter(file => file.startsWith(zipFilePrefix) && file.endsWith('.zip'));
@@ -28,16 +27,14 @@ archive.on('error', err => {
 
 archive.pipe(output);
 
-// Add files and folders to the archive using glob patterns
 archive.glob('**/*', {
   cwd: outputDir,
-  dot: true, // Include files that start with a dot
+  dot: true,
   ignore: [
-    'node_modules/**', // Exclude node_modules
-    'database.sqlite', // Exclude database.sqlite
-    `${zipFilePrefix}*.zip` // Exclude previous zip files
+    'node_modules/**',
+    'database.sqlite',
+    `${zipFilePrefix}*.zip`
   ]
 });
 
-// Finalize the archive
 archive.finalize();

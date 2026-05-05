@@ -19,7 +19,6 @@ function AppRoutes() {
       const response = await axios.get('/api/cart-items?expand=product')
       setCart(response.data);
     } catch {
-      // If 401, ProtectedRoute will handle redirect
       setCart([]);
     }
   }
@@ -30,12 +29,10 @@ function AppRoutes() {
 
   return (
     <Routes>
-      {/* Public routes */}
       <Route index element={<Navigate to="/login" replace />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
 
-      {/* Protected routes — redirect to /login if not authenticated */}
       <Route path='/homepage' element={
         <ProtectedRoute>
           <HomePage cart={cart} loadCart={loadCart} />
@@ -57,7 +54,6 @@ function AppRoutes() {
         </ProtectedRoute>
       } />
 
-      {/* Catch-all */}
       <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>
   )

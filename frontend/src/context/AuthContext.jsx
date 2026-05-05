@@ -8,7 +8,6 @@ export function AuthProvider({ children }) {
   const [token, setToken] = useState(() => localStorage.getItem('authToken'));
   const [loading, setLoading] = useState(true);
 
-  // Set axios default header whenever token changes
   useEffect(() => {
     if (token) {
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
@@ -19,7 +18,7 @@ export function AuthProvider({ children }) {
     }
   }, [token]);
 
-  // On mount, verify existing token
+
   useEffect(() => {
     const verifyToken = async () => {
       if (!token) {
@@ -30,7 +29,6 @@ export function AuthProvider({ children }) {
         const res = await axios.get('/api/auth/me');
         setUser(res.data);
       } catch {
-        // Token invalid/expired — clear it
         setToken(null);
         setUser(null);
       } finally {
@@ -38,7 +36,7 @@ export function AuthProvider({ children }) {
       }
     };
     verifyToken();
-  }, []); // run once on mount
+  }, []); 
 
   const login = (tokenValue, userData) => {
     setToken(tokenValue);

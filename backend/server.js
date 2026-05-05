@@ -27,17 +27,13 @@ const PORT = process.env.PORT || 3000;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Middleware
 app.use(cors());
 app.use(express.json());
 
-// Serve images from the images folder
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
-// Public routes - no auth required
 app.use('/api/auth', authRoutes);
 
-// Protected routes - require JWT
 app.use('/api/products', requireAuth, productRoutes);
 app.use('/api/delivery-options', requireAuth, deliveryOptionRoutes);
 app.use('/api/cart-items', requireAuth, cartItemRoutes);

@@ -4,7 +4,6 @@ import { useAuth } from '../context/AuthContext';
 export function ProtectedRoute({ children }) {
   const { isAuthenticated, loading } = useAuth();
 
-  // While checking stored token, show nothing (avoid flash)
   if (loading) {
     return (
       <div style={{
