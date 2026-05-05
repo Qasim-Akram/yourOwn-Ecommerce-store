@@ -1,9 +1,11 @@
 import { Link, useNavigate, useSearchParams } from 'react-router';
 import './header.css';
 import { useState } from 'react';
+import { useAuth } from '../context/AuthContext';
 
 export function Header({ cart }) {
     const navigate = useNavigate();
+    const { logout, user } = useAuth();
     const [searchParams] = useSearchParams();
     const [searchTerm, setSearchTerm] = useState(searchParams.get('search') || '');
 
@@ -20,6 +22,11 @@ export function Header({ cart }) {
         if (event.key === 'Enter') {
             searchItem();
         }
+    };
+
+    const handleLogout = () => {
+        logout();
+        navigate('/login');
     };
 
     return (
@@ -47,14 +54,23 @@ export function Header({ cart }) {
                 </div>
 
                 <div className="right-section">
+                    {user && (
+                        <span className="user-greeting">
+                            Hi, {user.firstName}
+                        </span>
+                    )}
                     <Link className="orders-link header-link" to="/orders">
                         <span className="orders-text">Orders</span>
                     </Link>
                     <Link className="cart-link header-link" to="/checkout">
                         <img className="cart-icon" src="images/icons/cart-icon.png" alt="cart" />
-                        {totalItems && <div className="cart-quantity">{totalItems}</div>}
+                        {totalItems > 0 && <div className="cart-quantity">{totalItems}</div>}
                         <div className="cart-text">Cart</div>
                     </Link>
+                    <div className="nav-divider" />
+                    <button className="logout-btn" onClick={handleLogout}>
+                        Logout
+                    </button>
                 </div>
             </div>
         </>

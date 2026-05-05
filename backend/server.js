@@ -9,10 +9,13 @@ import cartItemRoutes from './routes/cartItems.js';
 import orderRoutes from './routes/orders.js';
 import resetRoutes from './routes/reset.js';
 import paymentSummaryRoutes from './routes/paymentSummary.js';
+import authRoutes from './routes/auth.js';
+import { requireAuth } from './middleware/auth.js';
 import { Product } from './models/Product.js';
 import { DeliveryOption } from './models/DeliveryOption.js';
 import { CartItem } from './models/CartItem.js';
 import { Order } from './models/Order.js';
+import { User } from './models/User.js';
 import { defaultProducts } from './defaultData/defaultProducts.js';
 import { defaultDeliveryOptions } from './defaultData/defaultDeliveryOptions.js';
 import { defaultCart } from './defaultData/defaultCart.js';
@@ -31,18 +34,21 @@ app.use(express.json());
 // Serve images from the images folder
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
-// Use routes
-app.use('/api/products', productRoutes);
-app.use('/api/delivery-options', deliveryOptionRoutes);
-app.use('/api/cart-items', cartItemRoutes);
-app.use('/api/orders', orderRoutes);
-app.use('/api/reset', resetRoutes);
-app.use('/api/payment-summary', paymentSummaryRoutes);
+// Public routes - no auth required
+app.use('/api/auth', authRoutes);
 
-// Serve static files from the dist folder
+// Protected routes - require JWT
+app.use('/api/products', requireAuth, productRoutes);
+app.use('/api/delivery-options', requireAuth, deliveryOptionRoutes);
+app.use('/api/cart-items', requireAuth, cartItemRoutes);
+app.use('/api/orders', requireAuth, orderRoutes);
+app.use('/api/reset', requireAuth, resetRoutes);
+app.use('/api/payment-summary', requireAuth, paymentSummaryRoutes);
+
+
 app.use(express.static(path.join(__dirname, 'dist')));
 
-// Catch-all route to serve index.html for any unmatched routes
+
 app.get('*', (req, res) => {
   const indexPath = path.join(__dirname, 'dist', 'index.html');
   if (fs.existsSync(indexPath)) {
@@ -52,16 +58,16 @@ app.get('*', (req, res) => {
   }
 });
 
-// Error handling middleware
-/* eslint-disable no-unused-vars */
+
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ error: 'Something went wrong!' });
 });
-/* eslint-enable no-unused-vars */
 
-// Sync database and load default data if none exist
+
+
 await sequelize.sync();
+
 
 const productCount = await Product.count();
 if (productCount === 0) {
@@ -99,7 +105,7 @@ if (productCount === 0) {
   console.log('Default data added to the database.');
 }
 
-// Start server
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

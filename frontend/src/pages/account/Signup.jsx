@@ -1,30 +1,61 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
+import axios from 'axios';
+import { useAuth } from '../../context/AuthContext';
 import './account.css';
 
 export function Signup() {
     const navigate = useNavigate();
+    const { login } = useAuth();
+
     const [form, setForm] = useState({ firstName: "", lastName: "", email: "", password: "" });
     const [errors, setErrors] = useState({});
+    const [apiError, setApiError] = useState('');
     const [showPassword, setShowPassword] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const handleChange = (field) => (e) => {
         setForm(prev => ({ ...prev, [field]: e.target.value }));
-        if (errors[field]) setErrors(prev => ({ ...prev, [field]: false }));
+        if (errors[field]) setErrors(prev => ({ ...prev, [field]: '' }));
+        setApiError('');
     };
 
-    const handleSubmit = () => {
-        const newErrors = {
-            firstName: !form.firstName.trim(),
-            email: !form.email.trim(),
-            password: !form.password.trim(),
-        };
+    const validate = () => {
+        const newErrors = {};
+        if (!form.firstName.trim()) newErrors.firstName = 'First name is required';
+        if (!form.email.trim()) newErrors.email = 'Email is required';
+        if (!form.password.trim()) newErrors.password = 'Password is required';
+        else if (form.password.length < 6) newErrors.password = 'Password must be at least 6 characters';
         setErrors(newErrors);
-        if (Object.values(newErrors).some(Boolean)) return;
-        navigate("/homepage");
+        return Object.keys(newErrors).length === 0;
     };
 
-    const isValid = form.firstName.trim() && form.email.trim() && form.password.trim();
+    const handleSubmit = async () => {
+        if (!validate()) return;
+        setApiError('');
+        setLoading(true);
+        try {
+            const res = await axios.post('/api/auth/signup', {
+                firstName: form.firstName,
+                lastName: form.lastName || undefined,
+                email: form.email,
+                password: form.password
+            });
+            login(res.data.token, res.data.user);
+            navigate('/homepage');
+        } catch (err) {
+            const msg = err.response?.data?.error || 'Signup failed. Please try again.';
+            setApiError(msg);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') handleSubmit();
+    };
+
+    const isValid = form.firstName.trim() && form.email.trim() && form.password.length >= 6;
 
     return (
         <>
@@ -33,6 +64,12 @@ export function Signup() {
                 <h1 className="account-title">Create <span>Account</span></h1>
                 <p className="account-subtitle">Join us today</p>
 
+                {apiError && (
+                    <div className="api-error-banner">
+                        {apiError}
+                    </div>
+                )}
+
                 <div className="form-group">
                     <input
                         type="text"
@@ -40,8 +77,9 @@ export function Signup() {
                         placeholder="First Name"
                         value={form.firstName}
                         onChange={handleChange('firstName')}
+                        onKeyDown={handleKeyDown}
                     />
-                    {errors.firstName && <p className="error-message">First Name is required</p>}
+                    {errors.firstName && <p className="error-message">{errors.firstName}</p>}
                 </div>
 
                 <div className="form-group">
@@ -51,6 +89,7 @@ export function Signup() {
                         placeholder="Last Name (optional)"
                         value={form.lastName}
                         onChange={handleChange('lastName')}
+                        onKeyDown={handleKeyDown}
                     />
                 </div>
 
@@ -61,8 +100,9 @@ export function Signup() {
                         placeholder="Email"
                         value={form.email}
                         onChange={handleChange('email')}
+                        onKeyDown={handleKeyDown}
                     />
-                    {errors.email && <p className="error-message">Email is required</p>}
+                    {errors.email && <p className="error-message">{errors.email}</p>}
                 </div>
 
                 <div className="password-toggle-container">
@@ -70,23 +110,24 @@ export function Signup() {
                         <input
                             type={showPassword ? "text" : "password"}
                             className={`form-input ${errors.password ? 'input-error' : ''}`}
-                            placeholder="Password"
+                            placeholder="Password (min 6 characters)"
                             value={form.password}
                             onChange={handleChange('password')}
+                            onKeyDown={handleKeyDown}
                         />
-                        {errors.password && <p className="error-message">Password is required</p>}
+                        {errors.password && <p className="error-message">{errors.password}</p>}
                     </div>
                     <button className="toggle-button" onClick={() => setShowPassword(p => !p)}>
-                        {showPassword ? " Hide " : "Show"}
+                        {showPassword ? "Hide" : "Show"}
                     </button>
                 </div>
 
                 <button
-                    className={`button-primary ${!isValid ? 'button-disabled' : ''}`}
-                    disabled={!isValid}
+                    className={`button-primary ${(!isValid || loading) ? 'button-disabled' : ''}`}
+                    disabled={!isValid || loading}
                     onClick={handleSubmit}
                 >
-                    Sign Up
+                    {loading ? 'Creating account...' : 'Sign Up'}
                 </button>
 
                 <div className="auth-link">
