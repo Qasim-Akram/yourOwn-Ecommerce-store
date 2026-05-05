@@ -9,7 +9,7 @@
 
 | Home | Checkout | Orders |
 |------|----------|--------|
-| ![Home](screenshots/home.png) | ![Checkout](screenshots/checkout.png) | ![Orders](screenshots/orders.png) |
+| ![Home](screenshot/Home.png) | ![Checkout](screenshot/Checkout.png) | ![Orders](screenshot/Orders.png) |
 
 ---
 
