@@ -3,6 +3,8 @@
 > **Everything You. Nothing Less.**  
 > A full-stack e-commerce web application built with React, Node.js, Express, and SQLite.
 
+🌐 **Live Demo:** [https://qasim-ecommerce.azurewebsites.net](https://qasim-ecommerce.azurewebsites.net)
+
 ---
 
 ## 📸 Screenshots
@@ -23,6 +25,20 @@
 - 📦 **Order Tracking** — Visual progress bar (Preparing → Shipped → Delivered)
 - 🔄 **Buy Again** — Re-add past order items to cart instantly
 - 🧪 **Unit Tests** — Vitest + React Testing Library coverage
+
+---
+
+## 🚀 Deployment
+
+The app is deployed as a single Azure App Service instance (UAE North region).
+
+| Layer | Service |
+|-------|---------|
+| Frontend | Served as static files from `/dist` by Express |
+| Backend | Azure App Service (B1) — Node.js 22 LTS |
+| CI/CD | GitHub Actions — auto-deploys on push to `main` |
+
+🔗 **Live URL:** [https://qasim-ecommerce.azurewebsites.net](https://qasim-ecommerce.azurewebsites.net)
 
 ---
 
