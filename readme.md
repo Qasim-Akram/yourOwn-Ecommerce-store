@@ -180,7 +180,7 @@ Tests cover:
 🎓 BSCS Student — Islamia University of Bahawalpur  
 🔗 [github.com/Qasim-Akram](https://github.com/Qasim-Akram)  
 💼 [linkedin.com/in/qasimakram](https://linkedin.com/in/qasimakram)  
-🌐 [mqasimakram.netlify.app](https://mqasimakram.netlify.app)
+🌐 [mqasimakram.netlify.app](https://muhammadqasimakram.netlify.app)
 
 ---
 
